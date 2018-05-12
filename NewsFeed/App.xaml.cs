@@ -1,25 +1,18 @@
 ﻿using System.Threading.Tasks;
 using NewsFeed.API;
+using NewsFeed.ViewModels;
 using Xamarin.Forms;
 
 namespace NewsFeed
 {
     public partial class App : Application
     {
-        
-		public static NewsFeedDatabase Database { get; private set; } 
-            = new NewsFeedDatabase("NewsFeed.sqlite", DependencyService.Get<ISQLiteConnectionStringFactory>());
-
-
 		public App()
         {
 			InitializeComponent();
 
 
-			MainPage = new NavigationPage(new NewsFeed()
-            {
-                ViewModel = new NewsFeedViewModel()
-            });
+			MainPage = new NavigationPage();
 
         }
 

@@ -17,15 +17,14 @@ namespace NewsFeed
 
 			listView.SelectedItem = (listView.ItemsSource as IList)?[0];
 
-			MainPage = new NavigationPage(new CategoriesView()
-            {
-                ViewModel = new CategoriesViewModel()
-            });
-
+			MainPage = new NavigationPage();
+            
 
         }
 
-		private void OnListViewItemTapped(object sender, ItemTappedEventArgs e)
+        public NavigationPage MainPage { get; private set; }
+
+        private void OnListViewItemTapped(object sender, ItemTappedEventArgs e)
         {
 			IsPresented = false;
 

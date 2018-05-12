@@ -27,8 +27,10 @@ namespace NewsFeed.API
         public async Task<News> GetItems()
         {
             var articles = await _db.Table<Article>().ToListAsync();
-            var news = new News();
-            news.Articles = articles;
+            var news = new News
+            {
+                Articles = articles
+            };
             return news;
         }
     }
