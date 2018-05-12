@@ -87,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NewsFeed\NewsFeed.csproj">
-      <Project>{6E704B48-8C0E-43D6-AF54-38585CB0B0CC}</Project>
+      <Project>{E8E80F34-E5C1-4683-BEE9-520A4378BDA2}</Project>
       <Name>NewsFeed</Name>
     </ProjectReference>
   </ItemGroup>
