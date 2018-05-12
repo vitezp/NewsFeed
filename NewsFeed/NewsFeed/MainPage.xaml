@@ -15,7 +15,11 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Label Text="{Binding Author}"/>
+                            <StackLayout>
+                                <Label Text="{Binding Author}"/>
+                                <Label Text="{Binding Title}"/>
+                                <Label Text="{Binding Description}"/>
+                            </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
