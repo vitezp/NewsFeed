@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
+using NewsFeed.API;
 using Xamarin.Forms;
 
 namespace NewsFeed
@@ -12,8 +13,8 @@ namespace NewsFeed
 		public App ()
 		{
 			InitializeComponent();
-
-			MainPage = new NewsFeed.MainPage();
+		    Task.Factory.StartNew(NewsService.GetNews);
+            MainPage = new NewsFeed.MainPage();
 		}
 
 		protected override void OnStart ()

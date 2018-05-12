@@ -18,6 +18,7 @@ namespace NewsFeed.API
                 // fetch completed within timeout
                 var news = await fetch;
                 // await DataService.SaveItemAsync(news);
+                Console.WriteLine(news);
                 return news;
             }
             else

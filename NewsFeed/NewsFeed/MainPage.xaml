@@ -3,9 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:NewsFeed"
              x:Class="NewsFeed.MainPage">
+    <StackLayout>
+        <Button Text="Load NewsFeed"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Start"
+                Clicked="OnButtonClicked"/>
+        <ScrollView Orientation="Vertical">
+            <ListView VerticalOptions="FillAndExpand"
+                      HasUnevenRows="true"
+                      ItemsSource="{Binding Articles}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Author}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+    </StackLayout>
 
-	<Label Text="Welcome to Xamarin.Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
 
 </ContentPage>
