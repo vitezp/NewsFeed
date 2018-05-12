@@ -1,6 +1,9 @@
-﻿namespace NewsFeed.ViewModels
+﻿using XamarinToolkit.Mvvm;
+
+namespace NewsFeed.ViewModels
 {
-    public class AppViewModelBase
+	public class AppViewModelBase : ViewModelBase
     {
+        public NewsFeedDatabase NewsDb => App.Database;
     }
 }

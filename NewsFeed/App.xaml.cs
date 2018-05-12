@@ -6,9 +6,21 @@ namespace NewsFeed
 {
     public partial class App : Application
     {
-        public App()
+        
+		public static NewsFeedDatabase Database { get; private set; } 
+            = new NewsFeedDatabase("NewsFeed.sqlite", DependencyService.Get<ISQLiteConnectionStringFactory>());
+
+
+		public App()
         {
-            MainPage = new NewsFeedPage();
+			InitializeComponent();
+
+
+			MainPage = new NavigationPage(new NewsFeed()
+            {
+                ViewModel = new NewsFeedViewModel()
+            });
+
         }
 
         protected override void OnStart()

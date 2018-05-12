@@ -2,13 +2,13 @@
 
 namespace NewsFeed.Models
 {
-    public class NamedColor
+	public class Category
     {
-        public NamedColor()
+		public Category()
         {
             ;
         }
-        public NamedColor(string name, Color color)
+		public Category(string name, string color)
         {
             Name = name;
             Color = color;
@@ -16,7 +16,7 @@ namespace NewsFeed.Models
 
         public string Name { set; get; }
 
-        public Color Color { set; get; }
+        public string Color { set; get; }
 
         public override string ToString()
         {
