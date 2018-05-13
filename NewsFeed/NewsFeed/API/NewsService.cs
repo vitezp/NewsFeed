@@ -18,19 +18,15 @@ namespace NewsFeed.API
             {
                 // fetch completed within timeout
                 var news = await fetch;
-                /*Task.Factory.StartNew( async () =>
-                {
-                    var result = await DataService.SaveItemAsync(news);
-                    Console.WriteLine("Writing to DataService:" + result);
-                });*/
-                
+                var result = await DataService.SaveItemAsync(news);
+                Console.WriteLine("Writing to DataService: " + result);
                 return news;
             }
             else
             {
                 Console.WriteLine("Going Offline");
                 // check in offline db
-                // var items = await DataService.GetItems();
+                var items = await DataService.GetItems();
                 return null;
             }
         }

@@ -13,7 +13,10 @@ namespace NewsFeed
 		public App ()
 		{
 			InitializeComponent();
-		    Task.Factory.StartNew(NewsService.GetNews);
+
+		    // Init DB
+            DataService.ForceInit();
+
             MainPage = new NewsFeed.MainPage();
 		}
 

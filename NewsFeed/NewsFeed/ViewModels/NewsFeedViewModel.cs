@@ -25,7 +25,7 @@ namespace NewsFeed.ViewModels
 
         public bool IsRefreshing
         {
-            get { return _isRefreshing; }
+            get => _isRefreshing;
             set
             {
                 _isRefreshing = value;
@@ -46,10 +46,7 @@ namespace NewsFeed.ViewModels
 
         public Article SelectedItem
         {
-            get
-            {
-                return _selectedItem;
-            }
+            get => _selectedItem;
             set
             {
                 _selectedItem = value;
