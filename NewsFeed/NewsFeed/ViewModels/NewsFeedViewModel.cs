@@ -14,7 +14,7 @@ namespace NewsFeed.ViewModels
     public class LoadNewsViewModel : INotifyPropertyChanged
     {
 
-		 ObservableCollection<Article> _articles = new ObservableCollection<Article>();
+		ObservableCollection<Article> _articles = new ObservableCollection<Article>();
 
 		public ICommand PullToRefreshCommand { get; private set; }
 
@@ -58,7 +58,7 @@ namespace NewsFeed.ViewModels
         public LoadNewsViewModel()
         {
 			PullToRefreshCommand = new Command(RefreshCommand);
-			//RefreshCommand();
+			RefreshCommand();
         }
 
         //Inherited 
