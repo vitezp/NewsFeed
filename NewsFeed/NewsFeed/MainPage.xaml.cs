@@ -7,49 +7,31 @@ using System.Threading.Tasks;
 using NewsFeed.API;
 using NewsFeed.Models;
 using Xamarin.Forms;
+using NewsFeed.ViewModels;
 
 namespace NewsFeed
 {
 	public partial class MainPage : ContentPage
 	{
 
-	    private ObservableCollection<Article> _articles = new ObservableCollection<Article>();
 
-        public MainPage()
-        {
-            BindingContext = this;
-	        InitializeComponent();
+		public MainPage()
+		{
+			InitializeComponent();
+
+			var loadNewsiewModel = new LoadNewsViewModel();
+
+			BindingContext = loadNewsiewModel;
             
-           // OnButtonClicked(null, null);
-	       // OnButtonClicked(null, null);
-        }
-
-
-
-        public ObservableCollection<Article> Articles
-        {
-            get => _articles;
-            set
+			Articles.IsPullToRefreshEnabled = true;
+			Articles.RefreshCommand = loadNewsiewModel.PullToRefreshCommand;
+            
+			Articles.ItemTapped += (sender, e) =>
             {
-                _articles = value;
-                OnPropertyChanged();
-            }
-        }
+				Articles.SelectedItem = null;
+			};
 
-        
+		}
 
-	    void OnButtonClicked(object sender, EventArgs args)
-	    {
-            Console.WriteLine("Button clicked!");
-            // var article = new Article(){ Author = "Author", Description = "Description", Title = "Title", Url = "Url", UrlToImage = "Image Url"};
-	        Task.Factory.StartNew(async () =>
-	        {
-	            var news = await NewsService.GetNews();
-                news.Articles.ForEach( a => Articles.Add(a) );
-	            OnPropertyChanged();
-            });
-            // Articles.Add(article);
-           
-	    }
 	}
 }
