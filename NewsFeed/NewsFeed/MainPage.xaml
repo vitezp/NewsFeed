@@ -20,6 +20,9 @@
                                     <Label Text="{Binding GetDateTime}" FontAttributes="Bold" FontSize="Small" TextColor="Red"/>
                                     <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="Small"/>
                                     <Label Text="{Binding Description}" FontSize="Small"/>
+                                    <Image Aspect="AspectFit"
+                                           HorizontalOptions="FillAndExpand"
+                                           Source="{Binding UrlToImage}"/>
                                     <Label Text="{Binding Author}" FontAttributes="Italic" FontSize="Small"/>
                                 </StackLayout>
                         </ViewCell>
