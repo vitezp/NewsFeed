@@ -8,28 +8,34 @@ using Xamarin.Forms;
 
 namespace NewsFeed.API
 {
-    public interface IFileHelper
-    {
-        string GetLocalFilePath(string filename);
-    }
-
     public class DataService
     {
-        private static SQLiteAsyncConnection _db
+        private static SQLiteAsyncConnection _db;
+
+        private static SQLiteAsyncConnection Database
         {
             get
             {
-                var dbPath = DependencyService.Get<IFileHelper>().GetLocalFilePath("NewsFeedSQLite.db3");
-                var db = new SQLiteAsyncConnection(dbPath);
-                db.CreateTableAsync<Article>().Wait();
-                return db;
+                if (_db == null)
+                {
+                    var fileHelper = DependencyService.Get<IFileHelper>();
+                    var dbPath = fileHelper.GetLocalFilePath("NewsFeedSQLite2.db3");
+                    Console.WriteLine("Opening DB at: " + dbPath);
+                    var db = new SQLiteAsyncConnection(dbPath);
+                    db.CreateTableAsync<Article>().Wait();
+                    _db = db;
+                }
+
+                return _db;
             }
         }
+
+        
 
 
         public static async Task<News> GetItems()
         {
-            var articles = await _db.Table<Article>().ToListAsync();
+            var articles = await Database.Table<Article>().ToListAsync();
             var news = new News
             {
                 Articles = articles
@@ -39,9 +45,8 @@ namespace NewsFeed.API
 
         public static Task<int> SaveItemAsync(News news)
         {
-            var articles = news.Articles;
-            // delete all first
-            return _db.InsertAsync(news);
+            Console.WriteLine("SaveItemAsync");
+            return Database.InsertAllAsync(news.Articles);
         }
     }
 }
