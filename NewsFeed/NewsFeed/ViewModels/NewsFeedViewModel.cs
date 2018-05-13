@@ -48,6 +48,8 @@ namespace NewsFeed.ViewModels
         void RefreshCommand()
         {
 			IsRefreshing = true;
+            Articles.Clear();
+
             Task.Factory.StartNew(async () =>
             {
                 var news = await NewsService.GetNews();

@@ -23,6 +23,7 @@ namespace NewsFeed.API
             }
             else
             {
+                Console.WriteLine("Going Offline");
                 // check in offline db
                 return await DataService.GetItems();
             }
