@@ -18,8 +18,17 @@ namespace NewsFeed.ViewModels
 
 		public ICommand PullToRefreshCommand { get; private set; }
 
-        
-		private bool _isRefreshing = false;
+        public ObservableCollection<Article> Articles
+        {
+            get => _articles;
+            set
+            {
+                _articles = value;
+                OnPropertyChanged(nameof(Articles));
+            }
+        }
+
+        private bool _isRefreshing = false;
         public bool IsRefreshing
         {
             get { return _isRefreshing; }
@@ -30,7 +39,13 @@ namespace NewsFeed.ViewModels
             }
         }
 
-		void RefreshCommand()
+        //Constructor Loads Data on Application opening
+        public LoadNewsViewModel()
+        {
+            PullToRefreshCommand = new Command(RefreshCommand);
+        }
+
+        void RefreshCommand()
         {
 			IsRefreshing = true;
             Task.Factory.StartNew(async () =>
@@ -38,38 +53,17 @@ namespace NewsFeed.ViewModels
                 var news = await NewsService.GetNews();
                 news.Articles.ForEach(a => Articles.Add(a));
                 OnPropertyChanged(nameof(Articles));
+                IsRefreshing = false;
             });
-			IsRefreshing = false;
+			
 		}
-
-
-
-        public ObservableCollection<Article> Articles
-        {
-            get => _articles;
-            set
-            {
-                _articles = value;
-				OnPropertyChanged(nameof(Articles));
-            }
-        }
-      
-        //Constructor Loads Data on Application opening
-        public LoadNewsViewModel()
-        {
-			PullToRefreshCommand = new Command(RefreshCommand);
-			//RefreshCommand();
-        }
 
         //Inherited 
 		public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }
