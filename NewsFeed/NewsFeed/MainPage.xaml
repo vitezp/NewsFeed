@@ -8,6 +8,7 @@
             <ListView x:Name="Articles"
                       VerticalOptions="FillAndExpand"
                       HasUnevenRows="true"
+                      ItemSelected="OnItemSelected"
                       ItemsSource="{Binding Articles}"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                         IsPullToRefreshEnabled="true"

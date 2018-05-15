@@ -16,8 +16,9 @@ namespace NewsFeed.ViewModels
 
         ObservableCollection<Article> _articles = new ObservableCollection<Article>();
 
+		public INavigation Navigation;
         public ICommand PullToRefreshCommand { get; private set; }
-        public ICommand ItemClicked { get; private set; }
+        /*public ICommand ItemClicked { get; private set; }*/
 
         private bool _isRefreshing = false;
         private Article _selectedItem;
@@ -43,23 +44,6 @@ namespace NewsFeed.ViewModels
             }
         }
 
-
-        public Article SelectedItem
-        {
-            get => _selectedItem;
-            set
-            {
-                _selectedItem = value;
-
-                if (_selectedItem == null)
-                    return;
-
-                ItemClicked.Execute(_selectedItem);
-
-                SelectedItem = null;
-            }
-        }
-
         private void RefreshCommand()
         {
             IsRefreshing = true;
@@ -73,22 +57,16 @@ namespace NewsFeed.ViewModels
             });
             IsRefreshing = false;
         }
-
-        private void ItemClickedCommand()
-        {
-            Device.OpenUri(new Uri(_selectedItem.Url));
-        }
-
+      
         //Constructor Loads Data on Application opening
         public LoadNewsViewModel()
         {
-            PullToRefreshCommand = new Command(RefreshCommand);
-            ItemClicked = new Command(ItemClickedCommand);
-
+            PullToRefreshCommand = new Command(RefreshCommand);   
+           
             RefreshCommand();
         }
-
-                
+        
+	               
         //Inherited 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -71,5 +71,11 @@ namespace NewsFeed.API
             Console.WriteLine("SaveItemAsync");
             return Database.InsertAllAsync(news.Articles);
         }
+        /*
+		public static int SaveItemAsync()
+        {
+            Console.WriteLine("SaveItem");
+            return Database.InsertAllAsync(news.Articles);
+        }*/
     }
 }

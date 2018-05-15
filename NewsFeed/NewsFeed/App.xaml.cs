@@ -27,7 +27,11 @@ namespace NewsFeed
 
 		protected override void OnSleep ()
 		{
+            //This should save data into database so they are available after starting app without access to internet
 			// Handle when your app sleeps
+
+			//var result = DataService.SaveItemAsync();
+
 		}
 
 		protected override void OnResume ()

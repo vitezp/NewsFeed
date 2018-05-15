@@ -43,7 +43,20 @@ namespace NewsFeed
             //((ListView)sender).SelectedItem = null; //uncomment line if you want to disable the visual selection state.
         }
 
+		void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var article = e.SelectedItem as Article;
 
+            if (article == null)
+            {
+                return;
+            }
 
+            var inAppBrowser = new InAppBrowser(article.Url);
+            inAppBrowser.BindingContext = article;
+
+			Navigation.PushModalAsync(inAppBrowser);
+        }
+        
 	}
 }
