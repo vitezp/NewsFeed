@@ -3,15 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:NewsFeed"
              x:Class="NewsFeed.MainPage">
-    <StackLayout Padding="5,20,5,5">
-        <ScrollView Orientation="Vertical">
-            <ListView x:Name="ArticlesList"
-                      VerticalOptions="FillAndExpand"
+    <StackLayout Padding="5,20,5,5" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        
+        <ListView x:Name="ArticlesList"
+                      VerticalOptions="Fill"
                       HasUnevenRows="true"
                       ItemSelected="OnItemSelected"
-
+                      ItemsSource="{Binding ArticleList}"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                        IsPullToRefreshEnabled="false"
+                        IsPullToRefreshEnabled="true"
                         RefreshCommand="{Binding PullToRefreshCommand}"
                         IsRefreshing="{Binding IsRefreshing}">>
                    <ListView.ItemTemplate>
@@ -30,7 +30,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </ScrollView>
     </StackLayout>
 
 

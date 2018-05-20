@@ -15,18 +15,18 @@ namespace NewsFeed
 	public partial class MainPage : ContentPage
 	{
 
-		//LoadNewsViewModel loadNewsViewModel;
+		LoadNewsViewModel loadNewsViewModel;
 
 		public MainPage()
 		{
 			InitializeComponent();
 
-			var loadNewsViewModel = new LoadNewsViewModel();
+			loadNewsViewModel = new LoadNewsViewModel();
 
 			BindingContext = loadNewsViewModel;
-            
-            ArticlesList.IsPullToRefreshEnabled = false;
 			ArticlesList.RefreshCommand = loadNewsViewModel.PullToRefreshCommand;
+
+            ArticlesList.IsPullToRefreshEnabled = true;
             
 			ArticlesList.ItemTapped += (sender, e) =>
             {
@@ -42,7 +42,7 @@ namespace NewsFeed
         {
 			
 			base.OnAppearing();
-
+            
 			List<Article> loadedArticles = await App.Database.GetArticlesAsync();
 
             if (loadedArticles.Count == 0)
@@ -51,7 +51,9 @@ namespace NewsFeed
 				await App.Database.InsertArticleAsync(loadedArticles);
 			}
 
-			ArticlesList.ItemsSource = loadedArticles;
+			loadedArticles.ForEach(a => loadNewsViewModel.ArticleList.Add(a));
+                        
+			//ArticlesList.ItemsSource = loadedArticles;
                                   
         }
 

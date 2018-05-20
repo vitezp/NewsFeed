@@ -33,6 +33,7 @@ namespace NewsFeed.API
 		{
 			var latest = GetLatestArticle();
 			IEnumerable<Article> toUpdate = null;
+            //picking items which are newer than latest article from DB and adding them into DB
 			if (latest != null)
 			{
 				toUpdate = art.Where(mn => mn.PublishedDateTime > latest.PublishedDateTime);
