@@ -8,30 +8,50 @@ using NewsFeed.API;
 using NewsFeed.Models;
 using Xamarin.Forms;
 using NewsFeed.ViewModels;
+using System.Collections;
 
 namespace NewsFeed
 {
 	public partial class MainPage : ContentPage
 	{
 
+		//LoadNewsViewModel loadNewsViewModel;
 
 		public MainPage()
 		{
 			InitializeComponent();
 
-			var loadNewsiewModel = new LoadNewsViewModel();
+			var loadNewsViewModel = new LoadNewsViewModel();
 
-			BindingContext = loadNewsiewModel;
+			BindingContext = loadNewsViewModel;
             
-			Articles.IsPullToRefreshEnabled = true;
-			Articles.RefreshCommand = loadNewsiewModel.PullToRefreshCommand;
+            ArticlesList.IsPullToRefreshEnabled = true;
+			ArticlesList.RefreshCommand = loadNewsViewModel.PullToRefreshCommand;
             
-			Articles.ItemTapped += (sender, e) =>
+			ArticlesList.ItemTapped += (sender, e) =>
             {
-				Articles.SelectedItem = null;
+				ArticlesList.SelectedItem = null;
 			};
 
 		}
+
+		//ObservableCollection<Article> ArticleList; 
+
+
+		protected async override void OnAppearing()
+        {
+			
+			base.OnAppearing();
+
+			List<Article> loadedArticles = await App.Database.GetArticlesAsync();
+
+            if (loadedArticles.Count == 0)
+			{
+				loadedArticles = await Fetch.FetchNewsFeed();
+				await App.Database.InsertArticleAsync(loadedArticles);
+			}
+                                  
+        }
 
 		void OnSelection(object sender, SelectedItemChangedEventArgs e)
         {

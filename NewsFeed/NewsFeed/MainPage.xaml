@@ -5,11 +5,11 @@
              x:Class="NewsFeed.MainPage">
     <StackLayout Padding="5,20,5,5">
         <ScrollView Orientation="Vertical">
-            <ListView x:Name="Articles"
+            <ListView x:Name="ArticlesList"
                       VerticalOptions="FillAndExpand"
                       HasUnevenRows="true"
                       ItemSelected="OnItemSelected"
-                      ItemsSource="{Binding Articles}"
+                      ItemsSource="{Binding ArticleList}"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                         IsPullToRefreshEnabled="true"
                         RefreshCommand="{Binding PullToRefreshCommand}"
@@ -18,7 +18,7 @@
                     <DataTemplate>
                         <ViewCell>
                                 <StackLayout>
-                                    <Label Text="{Binding GetDateTime}" FontAttributes="Bold" FontSize="Small" TextColor="Red"/>
+                                    <Label Text="{Binding PrintableDateTime}" FontAttributes="Bold" FontSize="Small" TextColor="Red"/>
                                     <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="Small"/>
                                     <Label Text="{Binding Description}" FontSize="Small"/>
                                     <Image Aspect="AspectFit"

@@ -10,15 +10,28 @@ namespace NewsFeed
 {
 	public partial class App : Application
 	{
+		static ArticleDatabase database;
+
 		public App ()
 		{
 			InitializeComponent();
 
-		    // Init DB
-            DataService.ForceInit();
-
-            MainPage = new NewsFeed.MainPage();
+			MainPage = new NavigationPage(new MainPage());
 		}
+
+		public static ArticleDatabase Database
+        {
+            get
+            {
+                if (database == null)
+                {
+                    database = new ArticleDatabase(
+						DependencyService.Get<IFileHelper>()
+						.GetLocalFilePath("Article.db3"));
+                }
+                return database;
+            }
+        }
 
 		protected override void OnStart ()
 		{

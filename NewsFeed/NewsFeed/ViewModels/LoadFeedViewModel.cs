@@ -18,10 +18,9 @@ namespace NewsFeed.ViewModels
 
 		public INavigation Navigation;
         public ICommand PullToRefreshCommand { get; private set; }
-        /*public ICommand ItemClicked { get; private set; }*/
 
         private bool _isRefreshing = false;
-        private Article _selectedItem;
+        //private Article _selectedItem;
 
 
         public bool IsRefreshing
@@ -34,38 +33,49 @@ namespace NewsFeed.ViewModels
             }
         }
 
-		public ObservableCollection<Article> Articles
+		public ObservableCollection<Article> ArticleList
         {
             get => _articles;
             set
             {
                 _articles = value;
-                OnPropertyChanged(nameof(Articles));
+                OnPropertyChanged(nameof(ArticleList));
             }
         }
-
+        
         private void RefreshCommand()
         {
             IsRefreshing = true;
-            Articles.Clear();
+            ArticleList.Clear();
 
             Task.Factory.StartNew(async () =>
             {
-                var news = await NewsService.GetNews();
-                news.Articles.ForEach(a => Articles.Add(a));
-                OnPropertyChanged(nameof(Articles));
+
+				var news = await Fetch.FetchNewsFeed();
+                await App.Database.StoreArticleAsync(news.ToList());
+
+				OnPropertyChanged(nameof(ArticleList));
             });
+
+			LoadArticles();
             IsRefreshing = false;
         }
+
+		private async void LoadArticles()
+		{
+			var fromDb = await App.Database.GetArticlesAsync();
+            fromDb.ForEach(a => ArticleList.Add(a));
+		}
+
       
         //Constructor Loads Data on Application opening
         public LoadNewsViewModel()
         {
-            PullToRefreshCommand = new Command(RefreshCommand);   
-           
+            PullToRefreshCommand = new Command(RefreshCommand);
+
+			LoadArticles();
             RefreshCommand();
-        }
-        
+        }        
 	               
         //Inherited 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -74,6 +84,8 @@ namespace NewsFeed.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
 
     }
 }

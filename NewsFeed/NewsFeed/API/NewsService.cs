@@ -8,6 +8,7 @@ namespace NewsFeed.API
 {
     public static class NewsService
     {
+		/*
         public static async Task<News> GetNews()
         {
             int timeout = 3000; // 3s
@@ -29,6 +30,6 @@ namespace NewsFeed.API
                 var items = await DataService.GetItems();
                 return null;
             }
-        }
+        }*/
     }
 }
