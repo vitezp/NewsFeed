@@ -9,9 +9,9 @@
                       VerticalOptions="FillAndExpand"
                       HasUnevenRows="true"
                       ItemSelected="OnItemSelected"
-                      ItemsSource="{Binding ArticleList}"
+
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                        IsPullToRefreshEnabled="true"
+                        IsPullToRefreshEnabled="false"
                         RefreshCommand="{Binding PullToRefreshCommand}"
                         IsRefreshing="{Binding IsRefreshing}">>
                    <ListView.ItemTemplate>

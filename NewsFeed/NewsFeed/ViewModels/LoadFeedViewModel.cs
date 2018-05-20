@@ -42,7 +42,7 @@ namespace NewsFeed.ViewModels
                 OnPropertyChanged(nameof(ArticleList));
             }
         }
-        
+        /*
         private void RefreshCommand()
         {
             IsRefreshing = true;
@@ -59,22 +59,24 @@ namespace NewsFeed.ViewModels
 
 			LoadArticles();
             IsRefreshing = false;
-        }
+        }*/
 
 		private async void LoadArticles()
 		{
 			var fromDb = await App.Database.GetArticlesAsync();
             fromDb.ForEach(a => ArticleList.Add(a));
+			OnPropertyChanged(nameof(ArticleList));
 		}
 
       
         //Constructor Loads Data on Application opening
         public LoadNewsViewModel()
         {
-            PullToRefreshCommand = new Command(RefreshCommand);
+			//PullToRefreshCommand = new Command(RefreshCommand);
+
+			//RefreshCommand();
 
 			LoadArticles();
-            RefreshCommand();
         }        
 	               
         //Inherited 

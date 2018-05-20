@@ -25,7 +25,7 @@ namespace NewsFeed
 
 			BindingContext = loadNewsViewModel;
             
-            ArticlesList.IsPullToRefreshEnabled = true;
+            ArticlesList.IsPullToRefreshEnabled = false;
 			ArticlesList.RefreshCommand = loadNewsViewModel.PullToRefreshCommand;
             
 			ArticlesList.ItemTapped += (sender, e) =>
@@ -50,6 +50,8 @@ namespace NewsFeed
 				loadedArticles = await Fetch.FetchNewsFeed();
 				await App.Database.InsertArticleAsync(loadedArticles);
 			}
+
+			ArticlesList.ItemsSource = loadedArticles;
                                   
         }
 
