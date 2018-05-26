@@ -11,14 +11,12 @@ namespace NewsFeed.API
 {
     public static class Fetch
     {
-		public static async Task<List<Article>> FetchNewsFeed()
+		public static async Task<List<Article>> FetchNewsFeed(string category = "")
         {
             try
             {
                 var client = new HttpClient();
-                var response =
-                    await client.GetAsync(
-                        @"https://newsapi.org/v2/top-headlines?country=sk&apiKey=67d37685d7064a839ea635b1bde0b4f1");
+                var response = await client.GetAsync(BuildUrl(category));
 
                 response.EnsureSuccessStatusCode();
                 var responseJson = await response.Content.ReadAsStringAsync();
@@ -52,6 +50,12 @@ namespace NewsFeed.API
             }
             sb.Append($"{dateTime:HH:mm}");
             return sb.ToString();
+        }
+
+        private static string BuildUrl(string category)
+        {
+            var attach = String.IsNullOrEmpty(category) ? "" : $"?q={category}";
+            return @"https://newsapi.org/v2/top-headlines?country=sk&apiKey=67d37685d7064a839ea635b1bde0b4f1" + attach;
         }
 
     }
