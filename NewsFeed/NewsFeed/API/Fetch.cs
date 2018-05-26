@@ -36,6 +36,7 @@ namespace NewsFeed.API
             catch (Exception e)
             {
                 // var msg = new ApiResponse();
+                Console.WriteLine(e.Message);
 				return new List<Article>();
             }
         } 

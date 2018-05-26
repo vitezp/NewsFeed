@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NewsFeed.API;
+using NewsFeed.Views;
 using Xamarin.Forms;
 
 namespace NewsFeed
@@ -16,7 +17,8 @@ namespace NewsFeed
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new MainPage());
+			//MainPage = new NavigationPage(new MainPage());
+		    MainPage = new DetailPage();
 		}
 
 		public static ArticleDatabase Database

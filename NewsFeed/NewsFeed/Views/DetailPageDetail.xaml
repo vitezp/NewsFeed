@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NewsFeed.Views.DetailPageDetail"
+             Title="Detail">
+    <StackLayout Padding="3,0,3,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+
+        <ListView x:Name="ArticlesList"
+                  VerticalOptions="Fill"
+                  HasUnevenRows="true"
+                  ItemSelected="OnItemSelected"
+                  ItemsSource="{Binding ArticleList}"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                  IsPullToRefreshEnabled="true"
+                  RefreshCommand="{Binding PullToRefreshCommand}"
+                  IsRefreshing="{Binding IsRefreshing}">>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding PrintableDateTime}" FontAttributes="Bold" FontSize="Small" TextColor="Red"/>
+                            <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="Small"/>
+                            <Label Text="{Binding Description}" FontSize="Small"/>
+                            <Image Aspect="AspectFit"
+                                   HorizontalOptions="FillAndExpand"
+                                   Source="{Binding UrlToImage}"/>
+                            <Label Text="{Binding Author}" FontAttributes="Italic" FontSize="Small"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
