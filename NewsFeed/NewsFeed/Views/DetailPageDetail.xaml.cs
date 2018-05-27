@@ -16,7 +16,7 @@ namespace NewsFeed.Views
     {
         readonly LoadNewsViewModel loadNewsViewModel;
 
-        public string Category { get; set; }
+		public Category Category { get; set; }
 
         public DetailPageDetail()
         {

@@ -9,16 +9,15 @@ namespace NewsFeed.API
 {
     public static class ArticleFacade
     {
-        private static string _category;
+        private static Category _category;
 
-        public static async Task<List<Article>> GetArticles(string category)
+		public static async Task<List<Article>> GetArticles(Category category)
         {
             var loadedArticles = await App.Database.GetArticlesAsync();
 
             if (loadedArticles.Count == 0 || _category != category)
             {
-                loadedArticles = await Fetch.FetchNewsFeed(category);
-                await App.Database.InsertArticleAsync(loadedArticles);
+				loadedArticles = await DoFetch(category);
             }
 
             _category = category;
@@ -26,11 +25,19 @@ namespace NewsFeed.API
             return loadedArticles;
         }
 
-        public static async Task<List<Article>> DoFetch()
+
+		public static async Task<List<Article>> DoFetch()
         {
-            var articles = await Fetch.FetchNewsFeed(_category);
+            return await DoFetch(_category);
+        }
+
+		public static async Task<List<Article>> DoFetch(Category cat)
+        {
+            var articles = await Fetch.FetchNewsFeed(cat);
             await App.Database.InsertArticleAsync(articles.ToList());
             return articles;
         }
+
+
     }
 }
