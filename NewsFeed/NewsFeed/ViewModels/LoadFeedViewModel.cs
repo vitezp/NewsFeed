@@ -40,7 +40,18 @@ namespace NewsFeed.ViewModels
                 OnPropertyChanged(nameof(ArticleList));
             }
         }
-        
+
+
+        //Constructor Loads Data on Application opening
+        public LoadNewsViewModel()
+        {
+            PullToRefreshCommand = new Command(RefreshCommand);
+
+            //RefreshCommand();
+
+            LoadArticles();
+        }
+
         private void RefreshCommand()
         {
             IsRefreshing = true;
@@ -48,15 +59,13 @@ namespace NewsFeed.ViewModels
 
             Task.Factory.StartNew(async () =>
             {
-
-				var news = await Fetch.FetchNewsFeed();
-                await App.Database.StoreArticleAsync(news.ToList());
-
-				OnPropertyChanged(nameof(ArticleList));
+                var articles = await ArticleFacade.DoFetch();
+                articles.ForEach( a => ArticleList.Add(a));
+                OnPropertyChanged(nameof(ArticleList));
+                IsRefreshing = false;
             });
 
-			LoadArticles();
-            IsRefreshing = false;
+			// LoadArticles();
         }
 
 		private async void LoadArticles()
@@ -66,18 +75,6 @@ namespace NewsFeed.ViewModels
 			fromDb.ForEach(a => ArticleList.Add(a));
 			OnPropertyChanged(nameof(ArticleList));
 		}
-
-
-		//Constructor Loads Data on Application opening
-		public LoadNewsViewModel()
-		{
-			PullToRefreshCommand = new Command(RefreshCommand);
-
-			//RefreshCommand();
-
-			LoadArticles();
-		}
-
 
 	               
         //Inherited 

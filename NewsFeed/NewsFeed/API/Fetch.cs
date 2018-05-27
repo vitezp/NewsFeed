@@ -22,10 +22,14 @@ namespace NewsFeed.API
                 var responseJson = await response.Content.ReadAsStringAsync();
                 var news = JsonConvert.DeserializeObject<News>(responseJson);
 
-				foreach(var art in news.Articles)
+                int id = 0;
+
+				foreach(var article in news.Articles)
 				{
-					art.PublishedDateTime = Convert.ToDateTime(art.PublishedAt);
-					art.PrintableDateTime = GetDateTime(art.PublishedDateTime);
+				    article.Id = id;
+					article.PublishedDateTime = Convert.ToDateTime(article.PublishedAt);
+					article.PrintableDateTime = GetDateTime(article.PublishedDateTime);
+				    id++;
 				}
 				Console.WriteLine(news.Articles.Count);
 
@@ -33,7 +37,6 @@ namespace NewsFeed.API
             }
             catch (Exception e)
             {
-                // var msg = new ApiResponse();
                 Console.WriteLine(e.Message);
 				return new List<Article>();
             }
@@ -54,7 +57,7 @@ namespace NewsFeed.API
 
         private static string BuildUrl(string category)
         {
-            var attach = String.IsNullOrEmpty(category) ? "" : $"?q={category}";
+            var attach = string.IsNullOrEmpty(category) ? "" : $"&category={category}";
             return @"https://newsapi.org/v2/top-headlines?country=sk&apiKey=67d37685d7064a839ea635b1bde0b4f1" + attach;
         }
 

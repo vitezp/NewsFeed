@@ -16,8 +16,6 @@ namespace NewsFeed
 		public App ()
 		{
 			InitializeComponent();
-
-			//MainPage = new NavigationPage(new MainPage());
 		    MainPage = new DetailPage();
 		}
 
@@ -29,7 +27,7 @@ namespace NewsFeed
                 {
                     database = new ArticleDatabase(
 						DependencyService.Get<IFileHelper>()
-						.GetLocalFilePath("Article.db3"));
+						.GetLocalFilePath("Article2v.db3"));
                 }
                 return database;
             }
@@ -44,9 +42,6 @@ namespace NewsFeed
 		{
             //This should save data into database so they are available after starting app without access to internet
 			// Handle when your app sleeps
-
-			//var result = DataService.SaveItemAsync();
-
 		}
 
 		protected override void OnResume ()

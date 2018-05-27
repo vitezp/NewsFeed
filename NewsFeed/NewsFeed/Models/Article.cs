@@ -7,6 +7,8 @@ namespace NewsFeed.Models
 {
 	public class Article
 	{
+	    [PrimaryKey]
+        public int Id { get; set; }
       
 		public string Author { get; set; }
 
@@ -19,8 +21,7 @@ namespace NewsFeed.Models
 		public string UrlToImage { get; set; }
 
 		public string PublishedAt { get; set; }
-
-		[PrimaryKey]
+		
 		public DateTime PublishedDateTime { get; set; }
 
 		public string PrintableDateTime { get; set; }

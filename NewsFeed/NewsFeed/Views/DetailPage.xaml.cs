@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using NewsFeed.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,8 +24,8 @@ namespace NewsFeed.Views
             if (item == null)
                 return;
 
-            var page = (Page)Activator.CreateInstance(item.TargetType);
-            page.Title = item.Title;
+            var page = (DetailPageDetail)Activator.CreateInstance(item.TargetType);
+            page.Category = item.Category;
 
             Detail = new NavigationPage(page);
             IsPresented = false;

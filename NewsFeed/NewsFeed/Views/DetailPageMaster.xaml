@@ -33,7 +33,7 @@
             <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand">
               <Label VerticalOptions="FillAndExpand" 
                     VerticalTextAlignment="Center" 
-                    Text="{Binding Title}" 
+                    Text="{Binding Label}" 
                     FontSize="24"/>
             </StackLayout>
           </ViewCell>

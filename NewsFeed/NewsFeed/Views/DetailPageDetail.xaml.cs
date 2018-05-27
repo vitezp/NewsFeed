@@ -16,6 +16,8 @@ namespace NewsFeed.Views
     {
         readonly LoadNewsViewModel loadNewsViewModel;
 
+        public string Category { get; set; }
+
         public DetailPageDetail()
         {
             InitializeComponent();
@@ -42,8 +44,10 @@ namespace NewsFeed.Views
                 return;
             }
 
-            var inAppBrowser = new InAppBrowser(article.Url);
-            inAppBrowser.BindingContext = article;
+            var inAppBrowser = new InAppBrowser(article.Url)
+            {
+                BindingContext = article
+            };
 
             Navigation.PushModalAsync(inAppBrowser);
         }
@@ -53,18 +57,11 @@ namespace NewsFeed.Views
 
             base.OnAppearing();
 
-            var loadedArticles = await App.Database.GetArticlesAsync();
-
-            if (loadedArticles.Count == 0)
-            {
-                loadedArticles = await Fetch.FetchNewsFeed();
-                await App.Database.InsertArticleAsync(loadedArticles);
-            }
-
+            var loadedArticles = await ArticleFacade.GetArticles(Category);
+            loadNewsViewModel.ArticleList.Clear();
             loadedArticles.ForEach(a => loadNewsViewModel.ArticleList.Add(a));
 
             //ArticlesList.ItemsSource = loadedArticles;
-
         }
     }
 }
