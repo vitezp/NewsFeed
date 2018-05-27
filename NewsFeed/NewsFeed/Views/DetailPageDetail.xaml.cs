@@ -57,7 +57,7 @@ namespace NewsFeed.Views
 
             base.OnAppearing();
 
-            var loadedArticles = await ArticleFacade.GetArticles(Category);
+			var loadedArticles = await ArticleFacade.DoFetch(Category);
             loadNewsViewModel.ArticleList.Clear();
             loadedArticles.ForEach(a => loadNewsViewModel.ArticleList.Add(a));
 

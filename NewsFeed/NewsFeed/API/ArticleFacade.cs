@@ -11,16 +11,15 @@ namespace NewsFeed.API
     {
         private static Category _category;
 
+		public static async Task<List<Article>> GetArticles()
+        {
+			return await GetArticles(_category);
+        }
+
 		public static async Task<List<Article>> GetArticles(Category category)
         {
-            var loadedArticles = await App.Database.GetArticlesAsync();
-
-            if (loadedArticles.Count == 0 || _category != category)
-            {
-				loadedArticles = await DoFetch(category);
-            }
-
-            _category = category;
+			_category = category;
+            var loadedArticles = await App.Database.GetArticlesByCategoryAsync(category);   
 
             return loadedArticles;
         }
@@ -33,9 +32,10 @@ namespace NewsFeed.API
 
 		public static async Task<List<Article>> DoFetch(Category cat)
         {
-            var articles = await Fetch.FetchNewsFeed(cat);
-            await App.Database.InsertArticleAsync(articles.ToList());
-            return articles;
+			_category = cat;
+			var articles = await Fetch.FetchNewsFeed(cat);
+			await App.Database.StoreArticleAsync(articles.ToList(), cat);
+			return await App.Database.GetArticlesByCategoryAsync(cat);
         }
 
 

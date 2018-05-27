@@ -7,21 +7,21 @@ namespace NewsFeed.Models
     public enum Category
     {
             [Description("Business")]
-            business,
+            business ,
             [Description("Fun")]
-            entertainment,
+            entertainment ,
             [Description("General")]
-            general,
+            general ,
             [Description("Health")]
-            health,
+            health ,
             [Description("Science")]
-            science,
+            science ,
             [Description("Sports")]
-            sports,
+            sports ,
             [Description("Technology")]
-            technology,
+            technology ,
 		    [Description("All")]
-            all
+            all 
     }
 }
 

@@ -47,8 +47,6 @@ namespace NewsFeed.ViewModels
         {
             PullToRefreshCommand = new Command(RefreshCommand);
 
-            //RefreshCommand();
-
             LoadArticles();
         }
 
@@ -60,19 +58,18 @@ namespace NewsFeed.ViewModels
             Task.Factory.StartNew(async () =>
             {
                 var articles = await ArticleFacade.DoFetch();
+
                 articles.ForEach( a => ArticleList.Add(a));
                 OnPropertyChanged(nameof(ArticleList));
-                IsRefreshing = false;
             });
-
-			// LoadArticles();
+			IsRefreshing = false;
         }
 
 		private async void LoadArticles()
 		{
-			var fromDb = await App.Database.GetArticlesAsync();
+			var fromDb = await ArticleFacade.GetArticles(); 
 			ArticleList.Clear();
-			fromDb.ForEach(a => ArticleList.Add(a));
+            fromDb.ForEach(a => ArticleList.Add(a));
 			OnPropertyChanged(nameof(ArticleList));
 		}
 

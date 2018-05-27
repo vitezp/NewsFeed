@@ -22,14 +22,13 @@ namespace NewsFeed.API
                 var responseJson = await response.Content.ReadAsStringAsync();
                 var news = JsonConvert.DeserializeObject<News>(responseJson);
 
-                int id = 0;
 
 				foreach(var article in news.Articles)
 				{
-				    article.Id = id;
 					article.PublishedDateTime = Convert.ToDateTime(article.PublishedAt);
 					article.PrintableDateTime = GetDateTime(article.PublishedDateTime);
-				    id++;
+					article.Category = category;
+					Console.WriteLine("Category : {0}", article.Category);
 				}
 				Console.WriteLine(news.Articles.Count);
 
@@ -54,6 +53,16 @@ namespace NewsFeed.API
             sb.Append($"{dateTime:HH:mm}");
             return sb.ToString();
         }
+
+		private static string GetCategory(Category category)
+		{
+            return category.ToString();
+            
+            //Category = (Category)Enum.Parse(typeof(Category), value, true);
+            
+        
+		}
+
 
 		private static string BuildUrl(Category category)
         {
