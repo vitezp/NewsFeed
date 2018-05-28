@@ -14,7 +14,7 @@ namespace NewsFeed.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DetailPageDetail : ContentPage
     {
-        readonly LoadNewsViewModel loadNewsViewModel;
+        LoadNewsViewModel loadNewsViewModel;
 
 		public Category Category { get; set; }
 
@@ -22,10 +22,8 @@ namespace NewsFeed.Views
         {
             InitializeComponent();
 
-            loadNewsViewModel = new LoadNewsViewModel();
 
-            BindingContext = loadNewsViewModel;
-            ArticlesList.RefreshCommand = loadNewsViewModel.PullToRefreshCommand;
+            
 
             ArticlesList.IsPullToRefreshEnabled = true;
 
@@ -57,11 +55,12 @@ namespace NewsFeed.Views
 
             base.OnAppearing();
 
-			var loadedArticles = await ArticleFacade.DoFetch(Category);
-            loadNewsViewModel.ArticleList.Clear();
-            loadedArticles.ForEach(a => loadNewsViewModel.ArticleList.Add(a));
-
-            //ArticlesList.ItemsSource = loadedArticles;
+			loadNewsViewModel = new LoadNewsViewModel(Category);
+			BindingContext = loadNewsViewModel;
+            ArticlesList.RefreshCommand = loadNewsViewModel.PullToRefreshCommand;
+			//var loadedArticles = await ArticleFacade.FetchArticles(Category);
+            //loadNewsViewModel.ArticleList.Clear();
+            //loadedArticles.ForEach(a => loadNewsViewModel.ArticleList.Add(a));
         }
     }
 }

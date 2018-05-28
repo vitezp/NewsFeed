@@ -20,11 +20,19 @@ namespace NewsFeed.API
                 
 		public Task<List<Article>> GetArticlesAsync()
         {
-			return database.Table<Article>().OrderByDescending(mn=>mn.PublishedDateTime).ToListAsync();
+			return database.QueryAsync<Article>("SELECT  * FROM Article " +
+			                                    "WHERE Id IN(SELECT DISTINCT MIN(Id) FROM Article " +
+			                                                "GROUP BY Description) " +
+			                                    "ORDER BY PublishedDateTime DESC " +
+			                                    "LIMIT 50");
+			//return database.Table<Article>().OrderByDescending(mn=>mn.PublishedDateTime).ToListAsync();
         }
-
+        
 		public Task<List<Article>> GetArticlesByCategoryAsync(Category category)
         {
+			if(category == Category.all) 
+				return GetArticlesAsync();
+			
 			return database.Table<Article>().Where(mn=>mn.Category==category).OrderByDescending(mn => mn.PublishedDateTime).ToListAsync();
         }
 
@@ -50,15 +58,8 @@ namespace NewsFeed.API
         }
 
 
-
-		public async Task<int> InsertArticleAsync(List<Article> articles)
-        {
-            //All articles will be Added, no update option
-
-            // clear table
-            //await database.DropTableAsync<Article>();
-            //await database.CreateTableAsync<Article>();
-           
+        public async Task<int> InsertArticleAsync(List<Article> articles)
+		{
 			return await database.InsertAllAsync(articles);
         }
 

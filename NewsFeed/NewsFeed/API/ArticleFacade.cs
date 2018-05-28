@@ -25,12 +25,12 @@ namespace NewsFeed.API
         }
 
 
-		public static async Task<List<Article>> DoFetch()
+		public static async Task<List<Article>> FetchArticles()
         {
-            return await DoFetch(_category);
+            return await FetchArticles(_category);
         }
 
-		public static async Task<List<Article>> DoFetch(Category cat)
+		public static async Task<List<Article>> FetchArticles(Category cat)
         {
 			_category = cat;
 			var articles = await Fetch.FetchNewsFeed(cat);

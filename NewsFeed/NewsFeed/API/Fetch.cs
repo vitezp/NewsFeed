@@ -41,6 +41,7 @@ namespace NewsFeed.API
             }
         } 
 
+        //performed only once, while loaded
 		private static string GetDateTime(DateTime dateTime)
         {
             //converting to dateTime
@@ -53,16 +54,6 @@ namespace NewsFeed.API
             sb.Append($"{dateTime:HH:mm}");
             return sb.ToString();
         }
-
-		private static string GetCategory(Category category)
-		{
-            return category.ToString();
-            
-            //Category = (Category)Enum.Parse(typeof(Category), value, true);
-            
-        
-		}
-
 
 		private static string BuildUrl(Category category)
         {
