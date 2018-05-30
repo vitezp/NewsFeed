@@ -12,9 +12,11 @@ using Xamarin.Forms.Xaml;
 namespace NewsFeed.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DetailPageDetail : CategoryPage
+    public partial class DetailPageDetail : ContentPage, ICategory
     {
         LoadNewsViewModel loadNewsViewModel;
+
+        public Category Category { get; set; }
 
         public DetailPageDetail()
         {

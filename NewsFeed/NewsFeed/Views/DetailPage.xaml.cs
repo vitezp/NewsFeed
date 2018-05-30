@@ -24,10 +24,9 @@ namespace NewsFeed.Views
             if (item == null)
                 return;
 
-            var page = (ContentPage) Activator.CreateInstance(item.TargetType);
+            var page = (ICategory) Activator.CreateInstance(item.TargetType);
             page.Category = item.Category;
-
-            Detail = new NavigationPage(page);
+            Detail = new NavigationPage(page as Page);
             IsPresented = false;
 
             MasterPage.ListView.SelectedItem = null;

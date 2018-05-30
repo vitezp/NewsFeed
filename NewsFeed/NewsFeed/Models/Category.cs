@@ -22,6 +22,8 @@ namespace NewsFeed.Models
             Sports,
             [Description("Technology")]
             Technology,
+            [Description("Settings")]
+            Settings
     }
 }
 

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using NewsFeed.Models;
-using Xamarin.Forms;
 
 namespace NewsFeed.Views
 {
-    public class CategoryPage : ContentPage
+    public interface ICategory
     {
-        public Category Category { get; set; }
+        Category Category { get; set; }
     }
 }
