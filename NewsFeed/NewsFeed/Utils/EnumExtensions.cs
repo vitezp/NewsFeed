@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace NewsFeed.Models
+namespace NewsFeed.Utils
 {
     public static class EnumExtensions
     {

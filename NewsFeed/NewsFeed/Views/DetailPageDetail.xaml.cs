@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NewsFeed.API;
 using NewsFeed.Models;
+using NewsFeed.Utils;
 using NewsFeed.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

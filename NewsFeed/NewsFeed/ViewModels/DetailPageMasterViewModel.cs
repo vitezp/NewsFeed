@@ -7,8 +7,8 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using NewsFeed.Models;
+using NewsFeed.Utils;
 using NewsFeed.Views;
-using static NewsFeed.Models.EnumExtensions;
 
 namespace NewsFeed.ViewModels
 {
