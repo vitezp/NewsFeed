@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NewsFeed.Models;
+using NewsFeed.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,6 +18,14 @@ namespace NewsFeed.Views
         public SettingsPage ()
 		{
 			InitializeComponent ();
+		    BindingContext = new SettingsViewModel();
 		}
-	}
+
+	    private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+	    {
+	        var country = e.SelectedItem as Country;
+
+	    }
+
+    }
 }

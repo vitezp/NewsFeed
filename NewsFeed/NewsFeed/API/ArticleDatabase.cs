@@ -25,15 +25,19 @@ namespace NewsFeed.API
 			                                                "GROUP BY Description) " +
 			                                    "ORDER BY PublishedDateTime DESC " +
 			                                    "LIMIT 50");
-			//return database.Table<Article>().OrderByDescending(mn=>mn.PublishedDateTime).ToListAsync();
         }
         
 		public Task<List<Article>> GetArticlesByCategoryAsync(Category category)
         {
-			if(category == Category.All) 
-				return GetArticlesAsync();
-			
-			return database.Table<Article>().Where(mn=>mn.Category==category).OrderByDescending(mn => mn.PublishedDateTime).ToListAsync();
+            if (category == Category.All)
+            {
+                return GetArticlesAsync();
+            }
+
+            return database.Table<Article>()
+			    .Where(mn => mn.Category == category)
+			    .OrderByDescending(mn => mn.PublishedDateTime)
+			    .ToListAsync();
         }
 
 		public Task<int> StoreArticleAsync(List<Article> art)

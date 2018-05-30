@@ -18,7 +18,6 @@ namespace NewsFeed.ViewModels
 
 		public INavigation Navigation;
 		public ICommand PullToRefreshCommand { get; private set; }
-		private Category _category;
 
 		private bool _isRefreshing = false;
 
@@ -47,34 +46,28 @@ namespace NewsFeed.ViewModels
 		public LoadNewsViewModel(Category category)
 		{
 			PullToRefreshCommand = new Command(RefreshCommand);
-			_category = category;
-			LoadArticles();
+			LoadArticles(category);
 		}
 
 		private void RefreshCommand()
 		{
 			IsRefreshing = true;
-			ArticleList.Clear();
 
 			Task.Factory.StartNew(async () =>
 			{
-				var articles = await ArticleFacade.FetchArticles();
-
-				articles.ForEach(a => ArticleList.Add(a));
+				var articles = await ArticleFacade.GetArticles();
+			    ArticleList.Clear();
+                articles.ForEach(a => ArticleList.Add(a));
 				OnPropertyChanged(nameof(ArticleList));
 			});
 			IsRefreshing = false;
 		}
 
-		private async void LoadArticles()
+		private async void LoadArticles(Category category)
 		{
-			var fromDb = await ArticleFacade.GetArticles(_category);
-			ArticleList.Clear();
-			if (!fromDb.Any())
-			{
-				fromDb = await ArticleFacade.FetchArticles(_category);
-			}
-			fromDb.ForEach(a => ArticleList.Add(a));
+		    ArticleList.Clear();
+            var articles = await ArticleFacade.GetArticles(category);
+			articles.ForEach(a => ArticleList.Add(a));
 			OnPropertyChanged(nameof(ArticleList));
 		}
 

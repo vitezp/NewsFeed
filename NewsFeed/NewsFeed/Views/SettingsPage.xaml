@@ -4,9 +4,15 @@
              x:Class="NewsFeed.Views.SettingsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Settings Page"
+            <Label Text="Please select your country"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <ListView x:Name="MenuItemsListView"
+                      SeparatorVisibility="None"
+                      HasUnevenRows="true"
+                      ItemSelected="OnItemSelected"
+                      ItemsSource="{Binding MenuItems}">
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
