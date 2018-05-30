@@ -13,5 +13,6 @@ namespace NewsFeed.Models
 		public int Id { get; set; }
 		public Category Category { get; set; }
 	    public string Label { get; set; }
+        public Type TargetType { get; set; }
 	}
 }

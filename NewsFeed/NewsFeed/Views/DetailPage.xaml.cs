@@ -24,7 +24,8 @@ namespace NewsFeed.Views
             if (item == null)
                 return;
 
-            var page = new DetailPageDetail {Category = item.Category};
+            var page = (ContentPage) Activator.CreateInstance(item.TargetType);
+            page.Category = item.Category;
 
             Detail = new NavigationPage(page);
             IsPresented = false;
