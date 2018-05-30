@@ -30,7 +30,7 @@ namespace NewsFeed.API
         
 		public Task<List<Article>> GetArticlesByCategoryAsync(Category category)
         {
-			if(category == Category.all) 
+			if(category == Category.All) 
 				return GetArticlesAsync();
 			
 			return database.Table<Article>().Where(mn=>mn.Category==category).OrderByDescending(mn => mn.PublishedDateTime).ToListAsync();
@@ -38,7 +38,7 @@ namespace NewsFeed.API
 
 		public Task<int> StoreArticleAsync(List<Article> art)
         {
-			return StoreArticleAsync(art, Category.all);
+			return StoreArticleAsync(art, Category.All);
         }
 
 		public Task<int> StoreArticleAsync(List<Article> art, Category cat)
@@ -65,7 +65,7 @@ namespace NewsFeed.API
 
 		public Article GetLatestArticle()
         {
-			return GetLatestArticle(Category.all);
+			return GetLatestArticle(Category.All);
         }
 
 		public Article GetLatestArticle(Category category)

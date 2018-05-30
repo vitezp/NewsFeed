@@ -22,9 +22,6 @@ namespace NewsFeed.Views
         {
             InitializeComponent();
 
-
-            
-
             ArticlesList.IsPullToRefreshEnabled = true;
 
             ArticlesList.ItemTapped += (sender, e) =>
@@ -50,12 +47,13 @@ namespace NewsFeed.Views
             Navigation.PushModalAsync(inAppBrowser);
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
 
             base.OnAppearing();
+            Title = Category.GetDescription();
 
-			loadNewsViewModel = new LoadNewsViewModel(Category);
+            loadNewsViewModel = new LoadNewsViewModel(Category);
 			BindingContext = loadNewsViewModel;
             ArticlesList.RefreshCommand = loadNewsViewModel.PullToRefreshCommand;
 			//var loadedArticles = await ArticleFacade.FetchArticles(Category);

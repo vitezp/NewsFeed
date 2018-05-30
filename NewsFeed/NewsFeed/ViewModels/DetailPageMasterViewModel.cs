@@ -18,14 +18,14 @@ namespace NewsFeed.ViewModels
 		{
 			MenuItems = new ObservableCollection<DetailPageMenuItem>(new[]
 			{
-				new DetailPageMenuItem {Id = 0, Category = Category.all, Label = "All"},
-				new DetailPageMenuItem {Id = 1, Category = Category.business, Label = EnumExtensions.GetDescription(Category.business)},
-				new DetailPageMenuItem {Id = 2, Category = Category.entertainment, Label = EnumExtensions.GetDescription(Category.entertainment)},
-				new DetailPageMenuItem {Id = 3, Category = Category.general, Label = EnumExtensions.GetDescription(Category.general)},
-				new DetailPageMenuItem {Id = 4, Category = Category.health, Label = EnumExtensions.GetDescription(Category.health)},
-				new DetailPageMenuItem {Id = 5, Category = Category.science, Label = EnumExtensions.GetDescription(Category.science)},
-				new DetailPageMenuItem {Id = 6, Category = Category.sports, Label = EnumExtensions.GetDescription(Category.sports)},
-				new DetailPageMenuItem {Id = 7, Category = Category.science, Label = EnumExtensions.GetDescription(Category.technology)}
+				new DetailPageMenuItem {Id = 0, Category = Category.All, Label = Category.All.GetDescription()},
+				new DetailPageMenuItem {Id = 1, Category = Category.Business, Label = Category.Business.GetDescription()},
+				new DetailPageMenuItem {Id = 2, Category = Category.Entertainment, Label = Category.Entertainment.GetDescription()},
+				new DetailPageMenuItem {Id = 3, Category = Category.General, Label = Category.General.GetDescription()},
+				new DetailPageMenuItem {Id = 4, Category = Category.Health, Label = Category.Health.GetDescription()},
+				new DetailPageMenuItem {Id = 5, Category = Category.Science, Label = Category.Science.GetDescription()},
+				new DetailPageMenuItem {Id = 6, Category = Category.Sports, Label = Category.Sports.GetDescription()},
+				new DetailPageMenuItem {Id = 7, Category = Category.Science, Label = Category.Technology.GetDescription()}
 			});
 		}
 

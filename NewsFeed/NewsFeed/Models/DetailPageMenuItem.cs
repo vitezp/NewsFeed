@@ -10,15 +10,8 @@ namespace NewsFeed.Models
 
 	public class DetailPageMenuItem
 	{
-		private Category _category;
-
-		public DetailPageMenuItem()
-		{
-			TargetType = typeof(DetailPageDetail);
-		}
 		public int Id { get; set; }
-		public Category Category { get => _category; set => _category = value; }
-		public string Label { get; set; }
-		public Type TargetType { get; set; }
+		public Category Category { get; set; }
+	    public string Label { get; set; }
 	}
 }

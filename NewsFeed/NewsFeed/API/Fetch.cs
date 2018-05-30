@@ -57,7 +57,7 @@ namespace NewsFeed.API
 
 		private static string BuildUrl(Category category)
         {
-			var attach = category.Equals(Category.all) ? "" : $"&category={category}";
+			var attach = category.Equals(Category.All) ? "" : $"&category={category}";
             return @"https://newsapi.org/v2/top-headlines?country=sk&apiKey=67d37685d7064a839ea635b1bde0b4f1" + attach;
         }
 
