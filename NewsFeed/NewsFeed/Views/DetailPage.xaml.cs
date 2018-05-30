@@ -12,6 +12,7 @@ namespace NewsFeed.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DetailPage : MasterDetailPage
     {
+
         public DetailPage()
         {
             InitializeComponent();

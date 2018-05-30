@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NewsFeed.API;
 using NewsFeed.Models;
+using NewsFeed.Utils;
 using NewsFeed.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,7 +18,8 @@ namespace NewsFeed.Views
 	    public Category Category { get; set; }
 
         public SettingsPage ()
-		{
+        {
+            Category = Category.Settings;
 			InitializeComponent ();
 		    BindingContext = new SettingsViewModel();
 		}
@@ -26,7 +28,15 @@ namespace NewsFeed.Views
 	    {
 	        var country = e.SelectedItem as Country;
 	        ArticleFacade.Country = country;
+	        Settings.Country = country;
+            Application.Current.MainPage = new DetailPage();
 	    }
+
+	    protected override void OnAppearing()
+	    {
+	        base.OnAppearing();
+	        Title = Category.GetDescription();
+        }
 
     }
 }

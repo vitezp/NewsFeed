@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NewsFeed.Models;
+using NewsFeed.Utils;
 
 namespace NewsFeed.API
 {
     public static class ArticleFacade
     {
         private static Category _category;
-        public static Country Country { get; set; } = new Country("sk","Slovakia");
+        public static Country Country { get; set; } = Settings.Country;
 
         public static async Task<List<Article>> GetArticles()
         {
