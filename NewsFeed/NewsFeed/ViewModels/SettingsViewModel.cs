@@ -19,6 +19,7 @@ namespace NewsFeed.ViewModels
             {
                 new Country("sk", "Slovakia"),
                 new Country("cz", "Czechia"),
+                new Country("us", "USA"),
             };
         }
 

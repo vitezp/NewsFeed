@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewsFeed.API;
 using NewsFeed.Models;
 using NewsFeed.ViewModels;
 using Xamarin.Forms;
@@ -24,7 +25,7 @@ namespace NewsFeed.Views
 	    private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
 	    {
 	        var country = e.SelectedItem as Country;
-
+	        ArticleFacade.Country = country;
 	    }
 
     }

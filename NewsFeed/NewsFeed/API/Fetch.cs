@@ -11,12 +11,13 @@ namespace NewsFeed.API
 {
     public static class Fetch
     {
-		public static async Task<List<Article>> FetchNewsFeed(Category category)
+		public static async Task<List<Article>> FetchNewsFeed(Category category, Country country)
         {
             try
             {
                 var client = new HttpClient();
-				var response = await client.GetAsync(BuildUrl(category));
+                var url = BuildUrl(category, country);
+                var response = await client.GetAsync(url);
 
                 response.EnsureSuccessStatusCode();
                 var responseJson = await response.Content.ReadAsStringAsync();
@@ -55,11 +56,14 @@ namespace NewsFeed.API
             return sb.ToString();
         }
 
-		private static string BuildUrl(Category category)
-        {
-			var attach = category.Equals(Category.All) ? "" : $"&category={category}";
-            return @"https://newsapi.org/v2/top-headlines?country=sk&apiKey=67d37685d7064a839ea635b1bde0b4f1" + attach;
-        }
+		private static string BuildUrl(Category category, Country country)
+		{
+            var url = new StringBuilder();
+		    url.Append("https://newsapi.org/v2/top-headlines?apiKey=67d37685d7064a839ea635b1bde0b4f1");
+		    url.Append($"&country={country.Code}");
+			url.Append(category.Equals(Category.All) ? "" : $"&category={category}");
+		    return url.ToString();
+		}
 
     }
 }

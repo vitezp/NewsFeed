@@ -10,9 +10,9 @@ namespace NewsFeed.API
     public static class ArticleFacade
     {
         private static Category _category;
-        private static Country _country = new Country("sk","Slovakia");
+        public static Country Country { get; set; } = new Country("sk","Slovakia");
 
-		public static async Task<List<Article>> GetArticles()
+        public static async Task<List<Article>> GetArticles()
         {
 			return await GetArticles(_category);
         }
@@ -20,7 +20,7 @@ namespace NewsFeed.API
 		public static async Task<List<Article>> GetArticles(Category category)
         {
 			_category = category;
-            var articles = await Fetch.FetchNewsFeed(category);
+            var articles = await Fetch.FetchNewsFeed(category, Country);
             if (!articles.Any())
             {
                 return await App.Database.GetArticlesByCategoryAsync(category);
